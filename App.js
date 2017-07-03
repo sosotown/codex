@@ -1,16 +1,7 @@
 import React from 'react';
-import NavigationBar from 'react-native-navbar';
+import { StackNavigator } from 'react-navigation';
 import SideMenu from 'react-native-side-menu';
 import { StyleSheet, Text, View } from 'react-native';
-
-const rightButtonConfig = {
-  title: 'Next',
-  handler: () => alert('hello!'),
-};
-
-const titleConfig = {
-  title: 'CODEX',
-};
 
 class ContentView extends React.Component {
   render() {
@@ -31,25 +22,30 @@ class ContentView extends React.Component {
   }
 }
 
-export default class App extends React.Component {
+class HomeScreen extends React.Component {
+  static navigationOptions = {
+    title: 'CODEX',
+  };
   render() {
     return (
-      <View style={styles.container}>
-        <SideMenu menu="menu">
-          <NavigationBar
-            title={titleConfig}
-            rightButton={rightButtonConfig}
-          />
-          <ContentView/>
-        </SideMenu>
-      </View>
+      <SideMenu>
+        <ContentView/>
+      </SideMenu>
     );
   }
 }
 
+const App = StackNavigator({
+  Home: { screen: HomeScreen },
+});
+
+export default App
+
 const styles = StyleSheet.create({
+  fontWhite: {
+    color: 'white'
+  },
   container: {
-    paddingTop: 30,
     flex: 1,
     backgroundColor: '#fff',
   },
